@@ -17,7 +17,7 @@ const bar = 'bar;
       true
     );
     const updateRecorder = tree.beginUpdate(filePath);
-    const change = insertImport(source, filePath, 'Bar', './bar', true);
+    const change = insertImport(source, filePath, 'Bar', './bar', false);
     if (change instanceof InsertChange) {
       updateRecorder.insertRight(change.pos, change.toAdd);
     }

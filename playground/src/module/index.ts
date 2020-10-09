@@ -6,35 +6,40 @@ import {
   addExportToModule,
   addProviderToModule,
   addBootstrapToModule,
-  addRouteDeclarationToModule
+  // addRouteDeclarationToModule
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 
 export function playground(_options: any): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    const modulePath = 'app.module.ts';
-    const moduleContent = `import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
+  return  (tree: Tree, _context: SchematicContext) => {
+    const modulePath = _options.path + '/app.module.ts';
+    const moduleContent = tree.get(modulePath)?.content.toString() || '';
+    console.log(modulePath);
+    console.log(moduleContent);
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+//     const modulePath = 'app.module.ts';
+//     const moduleContent = `import { BrowserModule } from '@angular/platform-browser';
+// import { NgModule } from '@angular/core';
+// import { AppComponent } from './app.component';
 
-const myRoutes = [
-  { path: 'foo', component: FooComponent }
-];
+// const myRoutes = [
+//   { path: 'foo', component: FooComponent }
+// ];
 
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule.forChild(myRoutes)
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-`;
-    tree.create(modulePath, moduleContent);
+// @NgModule({
+//   declarations: [
+//     AppComponent
+//   ],
+//   imports: [
+//     BrowserModule,
+//     RouterModule.forChild(myRoutes)
+//   ],
+//   providers: [],
+//   bootstrap: [AppComponent]
+// })
+// export class AppModule { }
+// `;
+    // tree.create(modulePath, moduleContent);
 
     const source = ts.createSourceFile(
       modulePath,
@@ -104,15 +109,15 @@ export class AppModule { }
       }
     }
 
-    const change = addRouteDeclarationToModule(
-      source,
-      './src/app',
-      `{ path: 'bar', component: BarComponent }`
-    ) as InsertChange;
-    updateRecorder.insertLeft(change.pos, change.toAdd);
+    // const change = addRouteDeclarationToModule(
+    //   source,
+    //   './src/app/app-routing.module',
+    //   `{ path: 'bar', component: BarComponent }`
+    // ) as InsertChange;
+    // updateRecorder.insertLeft(change.pos, change.toAdd);
 
-    tree.commitUpdate(updateRecorder);
-    console.log(tree.get(modulePath)?.content.toString())
+     tree.commitUpdate(updateRecorder);
+    // console.log(tree.get(modulePath)?.content.toString())
 
     return tree;
   };

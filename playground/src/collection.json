@@ -1,6 +1,14 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
+    "ng-new": {
+      "description": "A blank schematic that will just log that it works.",
+      "factory": "./my-new/index#ngNew"
+    },
+    "ng-add": {
+      "description": "A blank schematic that will just log that it works.",
+      "factory": "./my-add/index#ngAdd"
+    },
     "playground": {
       "description": "A blank schematic that will just log that it works.",
       "factory": "./playground/index#playground"

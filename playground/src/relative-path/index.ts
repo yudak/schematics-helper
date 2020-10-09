@@ -23,7 +23,7 @@ export function playground(_options: any): Rule {
       apply(
         sourceTemplates, [
           template({
-            relativePathToWorkspaceRoot: relativePathToWorkspaceRoot(nonRootPathDefinition),
+            relativePathToWorkspaceRoot: relativePathToWorkspaceRoot(rootPathDefinition),
           }),
         ]
       )

@@ -12,16 +12,25 @@ import {
 
 export function playground(_options: any): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const dep: NodeDependency = {
-      type: NodeDependencyType.Dev,
-      name: 'moment',
-      version: '~2.27.0',
-      overwrite: true,
-    };
+    const dependencys: NodeDependency[] = [
+      {
+        type: NodeDependencyType.Default,
+        name: 'moment',
+        version: '~2.27.0',
+        overwrite: true,
+      },
+      {
+        type: NodeDependencyType.Default,
+        name: '@yudak/yk-tools',
+        version: '~0.0.3',
+        overwrite: true,
+      }];
+      dependencys.forEach(dep => {
+        addPackageJsonDependency(tree, dep);
+        console.log(getPackageJsonDependency(tree, dep.name));
+        // { type: 'devDependencies', name: 'moment', version: '~2.27.0' }
+    });
 
-    addPackageJsonDependency(tree, dep);
-    console.log(getPackageJsonDependency(tree, 'moment'))
-    // { type: 'devDependencies', name: 'moment', version: '~2.27.0' }
 
     removePackageJsonDependency(tree, 'protractor');
     console.log(getPackageJsonDependency(tree, 'protractor'))
